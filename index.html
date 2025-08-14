@@ -113,23 +113,9 @@
       left: 0;
       border-radius: 2px;
     }
+    /* Ukryj przycisk zmiany motywu */
     .theme-toggle {
-      background: none;
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, transform 0.2s;
-    }
-    .theme-toggle:hover {
-      background: var(--gradient);
-      color: var(--bg);
-      transform: rotate(20deg) scale(1.1);
+      display: none;
     }
     main {
       padding: 40px 20px;
@@ -155,86 +141,49 @@
       -webkit-text-fill-color: transparent;
       margin: 20px 0 10px;
     }
-    .description {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 30px;
-      opacity: 1;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .btn-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .btn {
-      border: none;
-      padding: 14px 28px;
-      border-radius: var(--radius);
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gradient);
-      transition: transform 0.2s, box-shadow 0.3s;
-      box-shadow: var(--shadow);
-    }
-    .btn:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 25px rgba(88, 166, 255, 0.4);
-    }
-    .btn img {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* Poprawione style dla sekcji funkcji */
+    /* Nowa sekcja features wg twojego wzoru */
     .features {
-      background: var(--header);
-      padding: 30px;
+      background: #1e2533;
+      padding: 30px 40px;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: 0 0 20px rgba(10, 20, 40, 0.8);
       margin-top: 60px;
-      text-align: left;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.2));
-      color: #d1d9ff; /* jasny, lekko niebieski kolor tekstu */
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #a0b9ff;
     }
     .features h2 {
-      margin-bottom: 16px;
-      text-align: center;
-      color: #5a8dee; /* intensywny niebieski nagłówka */
-      background: none;
-      -webkit-background-clip: unset;
-      -webkit-text-fill-color: unset;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #5a8dee;
     }
     .features ul {
       list-style: none;
       padding: 0;
-      color: #d1d9ff;
+      margin: 0 auto;
+      max-width: 400px;
+      text-align: left;
+      color: #a0b9ff;
     }
     .features li {
-      margin-bottom: 12px;
-      padding-left: 26px;
+      margin-bottom: 14px;
       position: relative;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      color: #d1d9ff;
+      padding-left: 28px;
+      font-weight: 500;
+      font-size: 1.1rem;
     }
     .features li::before {
-      content: '✔';
+      content: "✓";
       position: absolute;
       left: 0;
-      color: #5a8dee; /* niebieski znaczek ✔ */
-      background: none;
-      -webkit-background-clip: unset;
-      -webkit-text-fill-color: unset;
+      color: #5a8dee;
+      font-weight: 700;
+      font-size: 1.2rem;
+      line-height: 1;
     }
-
     .fade-in {
       opacity: 0;
       transform: translateY(40px);
@@ -315,19 +264,7 @@
     );
     faders.forEach(el => observer.observe(el));
 
-    // Theme toggle logic (jeśli chcesz usunąć przycisk zmiany motywu, usuń poniższy kod oraz element w headerze)
-    const toggleBtn = document.querySelector('.theme-toggle');
-    toggleBtn.addEventListener('click', () => {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        html.setAttribute('data-theme', 'light');
-        toggleBtn.textContent = '☀️';
-      } else {
-        html.setAttribute('data-theme', 'dark');
-        toggleBtn.textContent = '🌙';
-      }
-    });
+    // Usunięty toggle tematu - przycisk jest ukryty więc nie działa
   </script>
 </body>
 </html>
