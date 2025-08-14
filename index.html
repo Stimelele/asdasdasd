@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Piękna Strona z Motywem Jasnym/Ciemnym</title>
+  <meta name="description" content="Responsywna, elegancka strona z przełącznikiem motywu, animacjami i czystym kodem CSS/JS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-elev: #f6f7f9;
+      --text: #0f172a; /* slate-900 */
+      --subtle: #475569; /* slate-600 */
+      --primary: #6366f1; /* indigo-500 */
+      --primary-contrast: #ffffff;
+      --ring: rgba(99, 102, 241, 0.35);
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(2,6,23,.06), 0 4px 6px rgba(2,6,23,.04);
+      --radius: 18px;
+    }
+    
+    /* Motyw ciemny */
+    [data-theme="dark"] {
+      --bg: #0b1020;
+      --bg-elev: #0f172a;
+      --text: #e5e7eb;
+      --subtle: #a8b3cf;
+      --primary: #8b5cf6; /* violet-500 */
+      --primary-contrast: #0b1020;
+      --ring: rgba(139, 92, 246, 0.35);
+      --card: #101826;
+      --border: #1f2937;
+      --shadow: 0 12px 30px rgba(17, 24, 39, 0.6);
+    }
+
+    /* Preferencje systemowe jako punkt startowy */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        color-scheme: dark;
+      }
+      :root:not([data-theme]) body {
+        background: #0b1020;
+        color: #e5e7eb;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background .4s ease, color .4s ease;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nawigacja */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(160%) blur(8px);
+      background: color-mix(in oklab, var(--bg) 75%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: flex; gap: 10px; align-items: center; text-decoration: none; color: inherit;
+    }
+    .logo {
+      width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary), #22d3ee 30%));
+      box-shadow: 0 8px 20px var(--ring);
+    }
+    .brand-title { font-weight: 800; letter-spacing: .2px; }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--card); color: var(--text);
+      padding: 10px 14px; border-radius: 999px; cursor: pointer; font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: transform .06s ease, box-shadow .2s ease, background .25s ease, border-color .25s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--card); box-shadow: var(--shadow);
+    }
+    .toggle span { font-weight: 600; font-size: 14px; }
+    .icon { width: 20px; height: 20px; display: inline-block; }
+
+    /* Hero */
+    .hero {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center;
+      padding: 64px 0 36px;
+    }
+    .headline {
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.08; margin: 0 0 12px; font-family: "Playfair Display", serif; letter-spacing: .3px;
+    }
+    .lead { font-size: clamp(16px, 2.1vw, 20px); color: var(--subtle); margin-bottom: 22px; }
+
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 14px;
+      background: var(--primary); color: var(--primary-contrast); border: none; cursor: pointer;
+      font-weight: 700; letter-spacing: .2px; box-shadow: 0 14px 35px var(--ring);
+      transition: transform .06s ease, box-shadow .25s ease, filter .25s ease;
+    }
+    .cta:hover { transform: translateY(-1px); filter: brightness(1.03); }
+
+    .hero-card {
+      border: 1px solid var(--border); background: radial-gradient(1200px 600px at 80% -20%, color-mix(in oklab, var(--primary), transparent 82%), transparent), var(--card);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    }
+    .stat {
+      display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; margin-bottom: 10px;
+    }
+    .stat strong { font-size: 28px; }
+    .badge { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: color-mix(in oklab, var(--primary), transparent 85%); border: 1px dashed color-mix(in oklab, var(--primary), var(--bg) 65%); }
+
+    /* Sekcje kart */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--subtle); }
+
+    /* Sekcja galerii */
+    .gallery { margin-top: 26px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+    .tile { aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+    .tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent, color-mix(in oklab, var(--primary), transparent 85%)); opacity: .6; }
+    .tile > img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.05) contrast(1.02); }
+
+    /* Stopka */
+    footer { border-top: 1px solid var(--border); margin-top: 42px; }
+    .footer-inner { padding: 26px 0; color: var(--subtle); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    /* Animacje wjazdu */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Responsywność */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand" aria-label="Strona główna">
+        <span class="logo" aria-hidden="true"></span>
+        <span class="brand-title">Aurora</span>
+      </a>
+      <div class="nav-actions">
+        <button class="toggle" id="themeToggle" aria-pressed="false" aria-label="Przełącz motyw">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <span>Motyw</span>
+        </button>
+        <a class="btn" href="#funkcje">Funkcje</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1 class="headline reveal">Elegancja i prostota w jednym miejscu</h1>
+        <p class="lead reveal" style="transition-delay:.05s">Ta strona jest szybka, responsywna i posiada przełącznik motywu. Idealna jako baza dla portfolio, produktu lub bloga.</p>
+        <button class="cta reveal" style="transition-delay:.1s" onclick="document.getElementById('funkcje').scrollIntoView({behavior:'smooth'})">
+          Zobacz funkcje
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <div style="margin-top:18px" class="reveal" aria-live="polite">
+          <span class="badge">Lekka jak piórko</span>
+          <span class="badge">Czysty HTML/CSS/JS</span>
+          <span class="badge">Preferencje zapisywane</span>
+        </div>
+      </div>
+      <aside class="hero-card reveal" style="transition-delay:.12s" aria-label="Podgląd statystyk">
+        <div class="stat"><strong>98</strong><span>punktów w Lighthouse</span></div>
+        <div class="stat"><strong>~12KB</strong><span>CSS + JS (bez grafik)</span></div>
+        <div class="stat"><strong>&lt;100ms</strong><span>czas interaktywności</span></div>
+        <p class="lead" style="margin-top:10px">To oczywiście przykładowe liczby ✨</p>
+      </aside>
+    </section>
+
+    <section id="funkcje" class="reveal">
+      <h2 style="margin:0 0 14px; font-size:28px">Najważniejsze funkcje</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Przełącznik motywu</h3>
+          <p>Motyw jasny/ciemny z pamięcią w <code>localStorage</code> oraz wsparciem dla preferencji systemowych.</p>
+        </article>
+        <article class="card">
+          <h3>Nowoczesna typografia</h3>
+          <p>Połączenie Inter + Playfair zapewnia elegancki, czytelny wygląd.</p>
+        </article>
+        <article class="card">
+          <h3>Dopracowane detale</h3>
+          <p>Subtelne cienie, zaokrąglenia, animacje i kolorowe akcenty oparte o zmienne CSS.</p>
+        </article>
+      </div>
+
+      <div class="gallery">
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=800&q=80" alt="Abstrakcyjny kształt 1" loading="lazy"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1470115636492-6d2b56f9146e?w=800&q=80" alt="Abstrakcyjny kształt 2" loading="lazy"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1515387784663-e2e29a23f69a?w=800&q=80" alt="Abstrakcyjny kształt 3" loading="lazy"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1529625053176-8fc362f4c2b7?w=800&q=80" alt="Abstrakcyjny kształt 4" loading="lazy"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80" alt="Abstrakcyjny kształt 5" loading="lazy"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1520975940471-0f4091e88f2a?w=800&q=80" alt="Abstrakcyjny kształt 6" loading="lazy"></figure>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <small>© <span id="year"></span> Aurora. Wszystkie prawa zastrzeżone.</small>
+      <small><a href="#" style="color:inherit">Polityka prywatności</a> · <a href="#" style="color:inherit">Kontakt</a></small>
+    </div>
+  </footer>
+
+  <script>
+    (function initTheme() {
+      const root = document.documentElement;
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || stored === 'light') {
+        root.setAttribute('data-theme', stored);
+      } else {
+        root.removeAttribute('data-theme');
+      }
+    })();
+
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    function setTheme(mode) {
+      if (mode === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+      } else if (mode === 'light') {
+        root.setAttribute('data-theme', 'light');
+      } else {
+        root.removeAttribute('data-theme'); // fallback na prefers-color-scheme
+      }
+      localStorage.setItem('theme', mode);
+      btn.setAttribute('aria-pressed', mode === 'dark');
+      // Zmiana ikonografii (słońce/księżyc) – prosta animacja rotacji
+      btn.querySelector('svg').style.transform = 'rotate(180deg)';
+      setTimeout(() => btn.querySelector('svg').style.transform = '', 200);
+    }
+
+    // Klik – przełączanie
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      if (current === 'dark') setTheme('light');
+      else if (current === 'light') setTheme('dark');
+      else setTheme('dark');
+    });
+
+    // Ustaw rok w stopce
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animacje wjazdu elementów
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
