@@ -4,48 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ADVENCED BA V2</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary: #58a6ff;
       --secondary: #2f81f7;
       --gradient: linear-gradient(135deg, #58a6ff, #2f81f7);
-      --bg-dark: #0d1117;
-      --bg-light: #ffffff;
-      --text-dark: #c9d1d9;
-      --text-light: #0d1117;
-      --header-dark: rgba(22, 27, 34, 0.95);
-      --header-light: rgba(246, 248, 250, 0.95);
       --radius: 12px;
-      --shadow: 0 4px 20px rgba(0,0,0,0.2);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
+
     [data-theme="dark"] {
-      --bg: var(--bg-dark);
-      --text: var(--text-dark);
-      --header: var(--header-dark);
+      --bg: #0d1117;
+      --text: #c9d1d9;
+      --header: rgba(22, 27, 34, 0.95);
     }
+
     [data-theme="light"] {
-      --bg: var(--bg-light);
-      --text: var(--text-light);
-      --header: var(--header-light);
+      --bg: #f2f2f2;
+      --text: #1c1c1c;
+      --header: rgba(255, 255, 255, 0.9);
     }
+
     * {
       box-sizing: border-box;
       scroll-behavior: smooth;
-    }
-    body {
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: 'Roboto', sans-serif;
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s, color 0.3s;
-      background: linear-gradient(-45deg, #1e1e2f, #0d1117, #1a2238, #0d1117);
+      background-image: linear-gradient(-45deg, #0d1117, #1e1e2f, #0d1117, #1a2238);
       background-size: 400% 400%;
-      animation: gradientShift 20s ease infinite;
-      overflow-x: hidden;
+      animation: gradientMove 20s ease infinite;
     }
 
-    @keyframes gradientShift {
+    @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -57,38 +55,42 @@
       padding: 16px 32px;
       background: var(--header);
       align-items: center;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
       position: sticky;
       top: 0;
       z-index: 10;
-      transition: background 0.3s;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
     }
+
     .logo {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
       font-size: 1.4rem;
+      font-weight: 700;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-decoration: none;
     }
+
     .logo img {
-      height: 40px;
       width: 40px;
+      height: 40px;
       border-radius: var(--radius);
       animation: spin 12s linear infinite;
     }
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
     nav {
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
     }
+
     nav a {
       color: var(--text);
       text-decoration: none;
@@ -96,12 +98,14 @@
       position: relative;
       transition: color 0.3s;
     }
+
     nav a:hover,
     nav a.active {
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     nav a.active::after {
       content: '';
       position: absolute;
@@ -112,30 +116,34 @@
       left: 0;
       border-radius: 2px;
     }
+
     .theme-toggle {
-      background: none;
       border: 2px solid var(--primary);
       border-radius: 50%;
       width: 36px;
       height: 36px;
+      background: none;
+      color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--primary);
       cursor: pointer;
-      transition: background .3s, color .3s, transform .2s;
+      transition: transform 0.2s, background 0.3s;
     }
+
     .theme-toggle:hover {
       background: var(--gradient);
       color: var(--bg);
       transform: rotate(20deg) scale(1.1);
     }
+
     main {
-      padding: 40px 20px;
       max-width: 900px;
       margin: auto;
+      padding: 40px 20px;
       text-align: center;
     }
+
     .bot-logo {
       width: 140px;
       height: 140px;
@@ -143,23 +151,24 @@
       box-shadow: 0 0 20px var(--primary);
       animation: glow 3s ease-in-out infinite alternate;
     }
+
     @keyframes glow {
       from { box-shadow: 0 0 20px var(--primary); }
       to { box-shadow: 0 0 35px var(--secondary); }
     }
+
     h1 {
       font-size: 2.8rem;
+      margin: 20px 0 10px;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 20px 0 10px;
     }
+
     .description {
       font-size: 1.2rem;
       max-width: 600px;
       margin: 0 auto 30px;
-      opacity: 1;
-      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .btn-container {
@@ -169,24 +178,26 @@
       gap: 16px;
       margin-bottom: 40px;
     }
+
     .btn {
-      border: none;
-      padding: 14px 28px;
-      border-radius: var(--radius);
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
       display: flex;
       align-items: center;
       gap: 8px;
       background: var(--gradient);
-      transition: transform .2s, box-shadow .3s;
+      color: white;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      text-decoration: none;
       box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.3s;
     }
+
     .btn:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 25px rgba(88,166,255,0.4);
+      box-shadow: 0 6px 25px rgba(88, 166, 255, 0.4);
     }
+
     .btn img {
       width: 20px;
       height: 20px;
@@ -199,15 +210,15 @@
       box-shadow: var(--shadow);
       margin-top: 60px;
       text-align: left;
-      background-image: linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.2));
     }
 
     .features h2 {
-      margin-bottom: 16px;
       text-align: center;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
     }
 
     .features ul {
@@ -240,9 +251,9 @@
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
 
     @media (max-width: 600px) {
@@ -251,6 +262,7 @@
         gap: 8px;
         align-items: flex-end;
       }
+
       h1 {
         font-size: 2rem;
       }
@@ -273,10 +285,12 @@
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀</button>
   </header>
+
   <main>
     <img src="BA.gif" alt="ADVENCED BA V2 bot logo" class="bot-logo fade-in">
     <h1 class="fade-in">ADVENCED BA V2</h1>
     <p class="description fade-in">Powerful Discord bot with amazing tools to create the best messages ever!</p>
+
     <div class="btn-container fade-in">
       <a href="https://discord.com/oauth2/authorize?client_id=1285213175968694312&scope=bot&permissions=8" class="btn" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="Add Bot">
@@ -306,8 +320,9 @@
     const root = document.documentElement;
 
     if (localStorage.getItem('theme')) {
-      root.setAttribute('data-theme', localStorage.getItem('theme'));
-      btn.textContent = localStorage.getItem('theme') === 'dark' ? '☀' : '🌙';
+      const savedTheme = localStorage.getItem('theme');
+      root.setAttribute('data-theme', savedTheme);
+      btn.textContent = savedTheme === 'dark' ? '☀' : '🌙';
     }
 
     btn.addEventListener('click', () => {
@@ -318,9 +333,8 @@
       btn.textContent = newTheme === 'dark' ? '☀' : '🌙';
     });
 
-    // Fade-in on scroll
-    const faders = document.querySelectorAll('.fade-in, .features li');
-    const observer = new IntersectionObserver(entries => {
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
@@ -328,9 +342,7 @@
       });
     }, { threshold: 0.2 });
 
-    faders.forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in, .features li').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
-
-
