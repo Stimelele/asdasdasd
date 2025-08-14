@@ -8,26 +8,26 @@
   <style>
     :root {
       --primary: #58a6ff;
+      --secondary: #2f81f7;
       --bg-dark: #0d1117;
       --bg-light: #ffffff;
       --text-dark: #c9d1d9;
       --text-light: #0d1117;
       --header-dark: #161b22;
       --header-light: #f6f8fa;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-
     [data-theme="dark"] {
       --bg: var(--bg-dark);
       --text: var(--text-dark);
       --header: var(--header-dark);
     }
-
     [data-theme="light"] {
       --bg: var(--bg-light);
       --text: var(--text-light);
       --header: var(--header-light);
     }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -36,14 +36,13 @@
       color: var(--text);
       transition: background .3s, color .3s;
     }
-
     header {
       display: flex;
       justify-content: space-between;
       padding: 16px 32px;
       background: var(--header);
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -61,7 +60,11 @@
     .logo img {
       height: 40px;
       width: 40px;
-      border-radius: 8px;
+      border-radius: var(--radius);
+      animation: spin 12s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     nav {
       display: flex;
@@ -89,7 +92,6 @@
       left: 0;
       border-radius: 2px;
     }
-
     .theme-toggle {
       background: none;
       border: 2px solid var(--primary);
@@ -101,33 +103,38 @@
       justify-content: center;
       color: var(--primary);
       cursor: pointer;
-      transition: background .3s, color .3s;
+      transition: background .3s, color .3s, transform .2s;
     }
     .theme-toggle:hover {
       background: var(--primary);
       color: var(--bg);
+      transform: rotate(20deg);
     }
-
     main {
       padding: 40px 20px;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       text-align: center;
     }
     .bot-logo {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 20px;
-      box-shadow: 0 0 12px var(--primary);
+      box-shadow: 0 0 20px var(--primary);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px var(--primary); }
+      to { box-shadow: 0 0 35px var(--secondary); }
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--primary);
       margin: 20px 0 10px;
     }
     .description {
-      font-size: 1.1rem;
-      max-width: 500px;
+      font-size: 1.2rem;
+      max-width: 600px;
       margin: 0 auto 30px;
     }
     .btn-container {
@@ -139,42 +146,42 @@
     }
     .btn {
       border: 2px solid var(--primary);
-      padding: 12px 24px;
-      border-radius: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
       font-weight: 700;
       color: var(--primary);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: background .3s, color .3s;
+      transition: background .3s, color .3s, transform .2s;
+      box-shadow: var(--shadow);
     }
     .btn:hover {
       background: var(--primary);
       color: var(--bg);
+      transform: translateY(-2px);
     }
     .btn img {
       width: 20px;
       height: 20px;
     }
-
     .features {
       background: var(--header);
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
-      color: var(--primary);
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       margin-top: 20px;
+      text-align: left;
     }
     .features h2 {
       margin-bottom: 16px;
+      text-align: center;
+      color: var(--primary);
     }
     .features ul {
       list-style: none;
       padding: 0;
-      text-align: left;
-      max-width: 400px;
-      margin: auto;
       color: var(--text);
     }
     .features li {
@@ -188,12 +195,14 @@
       left: 0;
       color: var(--primary);
     }
-
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
         gap: 8px;
         align-items: flex-end;
+      }
+      h1 {
+        font-size: 2rem;
       }
     }
   </style>
@@ -214,7 +223,6 @@
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀</button>
   </header>
-
   <main>
     <img src="BA.gif" alt="ADVENCED BA V2 bot logo" class="bot-logo">
     <h1>ADVENCED BA V2</h1>
@@ -241,15 +249,13 @@
       </ul>
     </section>
   </main>
-
   <script>
     const btn = document.getElementById('themeToggle');
     const root = document.documentElement;
-
     if (localStorage.getItem('theme')) {
       root.setAttribute('data-theme', localStorage.getItem('theme'));
+      btn.textContent = localStorage.getItem('theme') === 'dark' ? '☀' : '🌙';
     }
-
     btn.addEventListener('click', () => {
       const current = root.getAttribute('data-theme');
       const newTheme = current === 'dark' ? 'light' : 'dark';
