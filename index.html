@@ -9,12 +9,13 @@
     :root {
       --primary: #58a6ff;
       --secondary: #2f81f7;
+      --gradient: linear-gradient(135deg, #58a6ff, #2f81f7);
       --bg-dark: #0d1117;
       --bg-light: #ffffff;
       --text-dark: #c9d1d9;
       --text-light: #0d1117;
-      --header-dark: #161b22;
-      --header-light: #f6f8fa;
+      --header-dark: rgba(22, 27, 34, 0.95);
+      --header-light: rgba(246, 248, 250, 0.95);
       --radius: 12px;
       --shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
@@ -35,6 +36,8 @@
       background: var(--bg);
       color: var(--text);
       transition: background .3s, color .3s;
+      background-image: radial-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
     header {
       display: flex;
@@ -43,6 +46,7 @@
       background: var(--header);
       align-items: center;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -54,7 +58,9 @@
       gap: 12px;
       font-weight: 700;
       font-size: 1.4rem;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       text-decoration: none;
     }
     .logo img {
@@ -80,7 +86,9 @@
     }
     nav a:hover,
     nav a.active {
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     nav a.active::after {
       content: '';
@@ -106,9 +114,9 @@
       transition: background .3s, color .3s, transform .2s;
     }
     .theme-toggle:hover {
-      background: var(--primary);
+      background: var(--gradient);
       color: var(--bg);
-      transform: rotate(20deg);
+      transform: rotate(20deg) scale(1.1);
     }
     main {
       padding: 40px 20px;
@@ -129,7 +137,9 @@
     }
     h1 {
       font-size: 2.8rem;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin: 20px 0 10px;
     }
     .description {
@@ -145,22 +155,22 @@
       margin-bottom: 40px;
     }
     .btn {
-      border: 2px solid var(--primary);
+      border: none;
       padding: 14px 28px;
       border-radius: var(--radius);
       font-weight: 700;
-      color: var(--primary);
+      color: white;
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: background .3s, color .3s, transform .2s;
+      background: var(--gradient);
+      transition: transform .2s, box-shadow .3s;
       box-shadow: var(--shadow);
     }
     .btn:hover {
-      background: var(--primary);
-      color: var(--bg);
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 25px rgba(88,166,255,0.4);
     }
     .btn img {
       width: 20px;
@@ -173,11 +183,14 @@
       box-shadow: var(--shadow);
       margin-top: 20px;
       text-align: left;
+      background-image: linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.2));
     }
     .features h2 {
       margin-bottom: 16px;
       text-align: center;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .features ul {
       list-style: none;
@@ -193,7 +206,9 @@
       content: '✔';
       position: absolute;
       left: 0;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     @media (max-width: 600px) {
       nav {
@@ -219,7 +234,7 @@
       <a href="https://top.gg/bot/1285213175968694312" target="_blank">Top.gg</a>
       <a href="#">Terms</a>
       <a href="https://discord.gg/kGvPhFvbSN" target="_blank">Discord</a>
-      <a href="premium.html" style="color: gold; font-weight: 700;">Premium</a>
+      <a href="premium.html" style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Premium</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀</button>
   </header>
@@ -266,3 +281,4 @@
   </script>
 </body>
 </html>
+
