@@ -11,8 +11,11 @@
       --secondary: #2f81f7;
       --gradient: linear-gradient(135deg, #58a6ff, #2f81f7);
       --bg-dark: #0d1117;
+      --bg-light: #ffffff;
       --text-dark: #c9d1d9;
+      --text-light: #0d1117;
       --header-dark: rgba(22, 27, 34, 0.95);
+      --header-light: rgba(246, 248, 250, 0.95);
       --radius: 12px;
       --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
@@ -21,6 +24,12 @@
       --text: var(--text-dark);
       --header: var(--header-dark);
       --background-animation: linear-gradient(-45deg, #1e1e2f, #0d1117, #1a2238, #0d1117);
+    }
+    [data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --header: var(--header-light);
+      --background-animation: linear-gradient(135deg, #e0e0e0, #ffffff, #f5f5f5, #ffffff);
     }
     * {
       box-sizing: border-box;
@@ -53,6 +62,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      transition: background 0.3s, color 0.3s;
       color: var(--text);
     }
     .logo {
@@ -102,6 +112,26 @@
       bottom: -4px;
       left: 0;
       border-radius: 2px;
+    }
+    .theme-toggle {
+      background: none;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      font-size: 18px;
+      user-select: none;
+    }
+    .theme-toggle:hover {
+      background: var(--gradient);
+      color: var(--bg);
+      transform: rotate(20deg) scale(1.1);
     }
     main {
       padding: 40px 20px;
@@ -163,48 +193,54 @@
       width: 20px;
       height: 20px;
     }
+
+    /* Sekcja funkcji */
     .features {
-      background: #1e2533;
-      padding: 30px 40px;
+      background: var(--header);
+      padding: 30px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       margin-top: 60px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      color: #a0b9ff;
+      text-align: left;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.2));
+      color: #d1d9ff;
     }
     .features h2 {
-      margin-bottom: 24px;
-      font-weight: 700;
-      font-size: 1.6rem;
+      margin-bottom: 16px;
+      text-align: center;
       color: #5a8dee;
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
     }
     .features ul {
       list-style: none;
       padding: 0;
-      margin: 0 auto;
-      max-width: 400px;
-      text-align: left;
-      color: #a0b9ff;
+      color: #d1d9ff;
     }
     .features li {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      padding-left: 26px;
       position: relative;
-      padding-left: 28px;
-      font-weight: 500;
-      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      color: #d1d9ff;
     }
     .features li::before {
-      content: "✓";
+      content: '✔';
       position: absolute;
       left: 0;
       color: #5a8dee;
-      font-weight: 700;
-      font-size: 1.2rem;
-      line-height: 1;
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
     }
+    .features li.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -214,47 +250,40 @@
       h1 {
         font-size: 2rem;
       }
-      .features {
-        padding: 20px 20px;
-        max-width: 100%;
-      }
-      .features ul {
-        max-width: 100%;
-      }
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="#" class="logo">
+    <a href="#" class="logo" aria-label="ADVENCED BA V2 logo">
       <img src="BA.gif" alt="ADVENCED BA V2 logo" />
       ADVENCED BA V2
     </a>
     <nav>
-      <a href="#" class="active">Home</a>
+      <a href="#" class="active" aria-current="page">Home</a>
       <a href="#">Statistics</a>
-      <a href="https://top.gg/bot/1285213175968694312" target="_blank">Top.gg</a>
+      <a href="https://top.gg/bot/1285213175968694312" target="_blank" rel="noopener noreferrer">Top.gg</a>
       <a href="#">Terms</a>
-      <a href="https://discord.gg/kGvPhFvbSN" target="_blank">Discord</a>
+      <a href="https://discord.gg/kGvPhFvbSN" target="_blank" rel="noopener noreferrer">Discord</a>
       <a href="premium.html" style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Premium</a>
     </nav>
-    <!-- Usunąłem toggle motywu zgodnie z Twoją prośbą -->
+    <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
   </header>
   <main>
     <img src="BA.gif" alt="ADVENCED BA V2 bot logo" class="bot-logo" />
     <h1>ADVENCED BA V2</h1>
     <p class="description">Powerful Discord bot with amazing tools to create the best messages ever!</p>
     <div class="btn-container">
-      <a href="https://discord.com/oauth2/authorize?client_id=1285213175968694312&scope=bot&permissions=8" class="btn" target="_blank">
+      <a href="https://discord.com/oauth2/authorize?client_id=1285213175968694312&scope=bot&permissions=8" class="btn" target="_blank" rel="noopener noreferrer">
         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="Add Bot" />
         Add Bot
       </a>
-      <a href="https://discord.gg/kGvPhFvbSN" class="btn" target="_blank">
+      <a href="https://discord.gg/kGvPhFvbSN" class="btn" target="_blank" rel="noopener noreferrer">
         <img src="discord.png" alt="Join Server" />
         Join Server
       </a>
     </div>
-    <section class="features">
+    <section class="features" aria-label="Features of ADVENCED BA V2">
       <h2>What can ADVENCED BA V2 do?</h2>
       <ul>
         <li>Powerful embed creator</li>
@@ -266,7 +295,35 @@
       </ul>
     </section>
   </main>
+  <script>
+    // Intersection Observer to animate list items on scroll
+    const items = document.querySelectorAll('.features li');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    items.forEach(item => observer.observe(item));
+
+    // Theme toggle
+    const toggleBtn = document.querySelector('.theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        toggleBtn.textContent = '☀️';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        toggleBtn.textContent = '🌙';
+      }
+    });
+  </script>
 </body>
 </html>
+
 
 
