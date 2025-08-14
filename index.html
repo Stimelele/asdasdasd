@@ -11,11 +11,8 @@
       --secondary: #2f81f7;
       --gradient: linear-gradient(135deg, #58a6ff, #2f81f7);
       --bg-dark: #0d1117;
-      --bg-light: #ffffff;
       --text-dark: #c9d1d9;
-      --text-light: #0d1117;
       --header-dark: rgba(22, 27, 34, 0.95);
-      --header-light: rgba(246, 248, 250, 0.95);
       --radius: 12px;
       --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
@@ -24,12 +21,6 @@
       --text: var(--text-dark);
       --header: var(--header-dark);
       --background-animation: linear-gradient(-45deg, #1e1e2f, #0d1117, #1a2238, #0d1117);
-    }
-    [data-theme="light"] {
-      --bg: var(--bg-light);
-      --text: var(--text-light);
-      --header: var(--header-light);
-      --background-animation: linear-gradient(135deg, #e0e0e0, #ffffff, #f5f5f5, #ffffff);
     }
     * {
       box-sizing: border-box;
@@ -62,7 +53,6 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      transition: background 0.3s, color 0.3s;
       color: var(--text);
     }
     .logo {
@@ -113,10 +103,6 @@
       left: 0;
       border-radius: 2px;
     }
-    /* Ukryj przycisk zmiany motywu */
-    .theme-toggle {
-      display: none;
-    }
     main {
       padding: 40px 20px;
       max-width: 900px;
@@ -141,17 +127,52 @@
       -webkit-text-fill-color: transparent;
       margin: 20px 0 10px;
     }
-    /* Nowa sekcja features wg twojego wzoru */
+    .description {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 1;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .btn {
+      border: none;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gradient);
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: var(--shadow);
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 25px rgba(88, 166, 255, 0.4);
+    }
+    .btn img {
+      width: 20px;
+      height: 20px;
+    }
     .features {
       background: #1e2533;
       padding: 30px 40px;
       border-radius: var(--radius);
-      box-shadow: 0 0 20px rgba(10, 20, 40, 0.8);
+      box-shadow: var(--shadow);
       margin-top: 60px;
-      text-align: center;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      text-align: center;
       color: #a0b9ff;
     }
     .features h2 {
@@ -184,15 +205,6 @@
       font-size: 1.2rem;
       line-height: 1;
     }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -201,6 +213,13 @@
       }
       h1 {
         font-size: 2rem;
+      }
+      .features {
+        padding: 20px 20px;
+        max-width: 100%;
+      }
+      .features ul {
+        max-width: 100%;
       }
     }
   </style>
@@ -219,15 +238,13 @@
       <a href="https://discord.gg/kGvPhFvbSN" target="_blank">Discord</a>
       <a href="premium.html" style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Premium</a>
     </nav>
-    <button class="theme-toggle" aria-label="Toggle theme">
-      🌙
-    </button>
+    <!-- Usunąłem toggle motywu zgodnie z Twoją prośbą -->
   </header>
   <main>
-    <img src="BA.gif" alt="ADVENCED BA V2 bot logo" class="bot-logo fade-in" />
-    <h1 class="fade-in">ADVENCED BA V2</h1>
-    <p class="description fade-in">Powerful Discord bot with amazing tools to create the best messages ever!</p>
-    <div class="btn-container fade-in">
+    <img src="BA.gif" alt="ADVENCED BA V2 bot logo" class="bot-logo" />
+    <h1>ADVENCED BA V2</h1>
+    <p class="description">Powerful Discord bot with amazing tools to create the best messages ever!</p>
+    <div class="btn-container">
       <a href="https://discord.com/oauth2/authorize?client_id=1285213175968694312&scope=bot&permissions=8" class="btn" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="Add Bot" />
         Add Bot
@@ -237,7 +254,7 @@
         Join Server
       </a>
     </div>
-    <section class="features fade-in">
+    <section class="features">
       <h2>What can ADVENCED BA V2 do?</h2>
       <ul>
         <li>Powerful embed creator</li>
@@ -249,23 +266,7 @@
       </ul>
     </section>
   </main>
-  <script>
-    // Fade-in on scroll
-    const faders = document.querySelectorAll('.fade-in, .features li');
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    faders.forEach(el => observer.observe(el));
-
-    // Usunięty toggle tematu - przycisk jest ukryty więc nie działa
-  </script>
 </body>
 </html>
+
 
